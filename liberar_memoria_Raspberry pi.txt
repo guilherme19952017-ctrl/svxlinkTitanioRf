@@ -1,0 +1,29 @@
+# Liberar mais memória RAM para o sistema
+#
+# A placa Raspberry Pi não tem memória nem GPU dedicada
+# para vídeo. Esses recursos são compartilhados!
+# Quando usamos uma placa Raspberry Pi como servidor, sem
+# interface grafica, podemos liberar mais memória RAM para
+# o sistema operacional se diminuir a memória para video.
+# O mínimo de mémoria para vídeo é 16M e o máximo 512M.
+# Principalmente nos modelos ZERO até as modelos 3 que
+# não passam de 1G de RAM, esse ajuste ajuda um pouco.
+
+# O comando "vcgencmd get_mem gpu" mostra quanto de 
+# memória RAM está sendo compartilhado com o sistema.
+#
+# Por padrão o retorno desse comando vai ser: gpu=76M
+
+
+# Edite o arquivo config.txt
+
+sudo vim /boot/firmware/config.txt
+
+# Acrescente o parametro gpu_men=16 depois da linha [all]
+
+gpu_mem=16
+
+# Salve e reinicie o sistema para que o parametro seja lido
+
+# Agora rode o comando "vcgencmd get_mem gpu" (sem as aspas)
+# para ver o valor alterado que deve ser "gpu=16M"
