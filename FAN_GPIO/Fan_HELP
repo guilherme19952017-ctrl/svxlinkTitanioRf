@@ -1,0 +1,57 @@
+Criação do script RODRIGO PU2UJN
+
+/etc/svxlink/script/fan.sh em um serviço que roda automaticamente
+
+Criar pasta Script
+sudo mkdir -p /etc/svxlink/script
+
+Colar o script
+sudo nano /etc/svxlink/script/fan.sh
+
+
+Verifique permissões do script
+sudo chmod +x /etc/svxlink/script/fan.sh
+
+Teste manualmente para garantir que funciona:
+sudo /etc/svxlink/script/fan.sh
+
+
+#Criar o serviço systemd
+#Crie o arquivo de serviço:
+sudo nano /etc/systemd/system/fan.service
+
+####################################################
+[Unit]
+Description=Serviço de Controle do Fan do SvxLink
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/etc/svxlink/script/fan.sh
+Restart=on-failure
+User=root
+WorkingDirectory=/etc/svxlink/script
+
+[Install]
+WantedBy=multi-user.target
+
+####################################################
+
+
+Habilitar e iniciar o serviço
+
+sudo systemctl daemon-reload
+sudo systemctl enable fan.service
+sudo systemctl start fan.service
+
+
+
+
+Verificar status e logs
+
+sudo systemctl status fan.service
+sudo journalctl -u fan.service -f
+
+
+
+
