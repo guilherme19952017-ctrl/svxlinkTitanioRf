@@ -6,7 +6,7 @@ sudo vim /usr/share/svxlink/events.d/Logic.tcl
 - Comentar a linha: playTone 440 500 100
 - Adicionar a linha playMsg "Core" "rgr"
 
-- Onde "Core" é o diretório e "rgr" o nome do arquivo com o som do roger beep!
+- Onde "Core" é o diretório e "rgr" é nome do arquivo com o som do roger beep!
 - Os arquivos de som estão no diretório "/usr/share/svxlink/sounds/pt_BR/Core/"
 
 ## Instalar ferramenta para ajustar os arquivos de audio WAV
