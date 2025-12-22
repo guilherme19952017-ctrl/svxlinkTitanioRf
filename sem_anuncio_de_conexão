@@ -1,0 +1,75 @@
+Procedimento para -lincar- uma estação echolink à uma repetidora.
+PU2UJN - Rodrigo
+
+- No arquivo /etc/svxlink/sxvlink.conf, comentar as linhas que declinam o indicativo da estação
+
+SHORT_IDENT_INTERVAL=10
+LONG_IDENT_INTERVAL=30
+
+Retirar o roger beep para não criar loop comentando a linha abaixo
+
+RGR_SOUND_DELAY=0
+
+- No arquivo /etc/svxlink/svxlink.d/ModuleEcholink.conf
+
+Definir se vai conectar automaticamente à conferencias
+
+AUTOCON_ECHOLINK_ID=
+
+Definir se permite acesso pelo node/indicativo
+
+DROP_ALL_INCOMING=0
+
+Definir o número máximo de conexões
+
+MAX_QSOS=10
+MAX_CONNECTIONS=10
+
+- No arquivo /usr/share/svxlink/events.d/Module.tcl
+
+Comentar com "#" as linhas abaixo para que não fale na frequência quando está ativo ou inativo
+
+playMsg "Default" "activating";
+
+playMsg $module_name "name";
+
+playMsg "Default" "deactivating";
+
+playMsg $module_name "name";
+
+
+- No arquivo /usr/share/svxlink/events.d/EchoLink.tcl
+
+Comentar o topico " # Spell an EchoLink callsign " inteiro para não ficar anunciando o indicativo
+de quem entra na sala/node/indicativo por APP
+
+
+#
+# Spell an EchoLink callsign
+#
+##proc spellEchoLinkCallsign {call} {
+##  global langdir
+##  if [regexp {^(\w+)-L$} $call ignored callsign] {
+##    spellWord $callsign
+##    playSilence 50
+##    playMsg "link"
+##  } elseif [regexp {^(\w+)-R$} $call ignored callsign] {
+##    spellWord $callsign
+##    playSilence 50
+##    playMsg "repeater"
+##  } elseif [regexp {^\*(.+)\*$} $call ignored name] {
+##    playMsg "conference"
+##    playSilence 50
+##    set lc_name [string tolower $name]
+##    if [file exists "$langdir/EchoLink/conf-$lc_name.wav"] {
+##      playFile "$langdir/EchoLink/conf-$lc_name.wav"
+##    } else {
+##      spellEchoLinkCallsign $name
+##    }
+##  } else {
+##    spellWord $call
+##  }
+##}
+
+
+E quanto mais "msgPlay" comentar nesse arquivo, menos mensagens na frequência!
